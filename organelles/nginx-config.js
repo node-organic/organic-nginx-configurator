@@ -23,17 +23,18 @@ const get_generation_id = function (cellInfo) {
 }
 
 module.exports = class {
-  consutroct (plasma, dna) {
+  constructor (plasma, dna) {
     this.plasma = plasma
     this.dna = dna
     this.templatePromise = this.loadTemplate()
     this.plasma.on(dna.channel.name, this.handleChemical, this)
-    this.plsama.on(dna.channel.onReadyType, this.broadcastReannonce, this)
+    this.plasma.on(dna.channel.onReadyType, this.broadcastReannonce, this)
   }
   async loadTemplate () {
     let promise = new Promise((resolve, reject) => {
       fs.readFile(this.dna.templatePath, (err, data) => {
         if (err) return reject(err)
+        console.info('template loaded...')
         resolve(data.toString())
       })
     })
@@ -44,10 +45,14 @@ module.exports = class {
     this[c.action](c, next)
   }
   broadcastReannonce (c){
-    this.plasma.emit({
-      type: this.dna.channel.emitReannonceType,
-      channel: this.dna.channel.name
-    })
+    console.info('ready, broadcasting reannonce request after 5 sec...')
+    setTimeout(() => {
+      this.plasma.emit({
+        type: this.dna.channel.emitReannonceType,
+        channel: this.dna.channel.name
+      })
+      console.info('reannonce request broadcasted.')
+    }, 5 * 1000)
   }
   
   setTemplate (c) {
@@ -108,7 +113,7 @@ module.exports = class {
       })
     }
     return hash_to_arr(upstreams_hash)
-  },
+  }
   getServersAndLocations () {
     let servers_hash = {}
     for (let i = 0; i < this.startedCells.length; i++) {
