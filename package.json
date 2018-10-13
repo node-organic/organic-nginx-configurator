@@ -1,0 +1,21 @@
+{
+  "name": "organic-nginx-configurator",
+  "version": "0.0.0",
+  "description": "A cell which is aggregating chemicals for cluster's cell topology and notifies nginx for changes by issueing nginx configuration reload.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "engines": {
+    "node": "8.7.0"
+  },
+  "author": "Boris Filipov",
+  "license": "MIT",
+  "dependencies": {
+    "angelabilities-package-scripts": "^0.1.0",
+    "execa": "^1.0.0",
+    "organic-angel": "^0.3.2",
+    "organic-dna-loader": "^1.5.1",
+    "organic-plasma-channel": "^2.1.1"
+  }
+}

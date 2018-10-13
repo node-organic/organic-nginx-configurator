@@ -1,0 +1,34 @@
+<% upstreams.forEach((upstream) => { %>
+  upstream <%= upstream.name %> {
+    <% upstream.servers.forEach((server) => { %>
+      server <%= server.endpoint %>;
+    <% }) %>
+  }
+<% }) %>
+
+<% servers.forEach((server) => { %>
+  server {
+    listen <%= server.port %>;
+    server_name <%= server.name %>;
+    
+    <% server.locations.forEach((location) => { %>
+      <% if (location.back) { %>
+        location <%= location.front %> {
+          proxy_pass <%= location.back %>;
+          proxy_set_header Host $host;
+          proxy_set_header Referer $http_referer;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Host $server_name;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        }
+      <% } %>
+      <% if (location.files) { %>
+        location <%= location.front %> {
+          root <%= location.files %>;
+          try_files $uri $uri/ =404;
+        }
+      <% } %>
+    <% }) %>
+  }
+<% }) %>

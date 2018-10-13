@@ -1,0 +1,28 @@
+{
+  "organic-plasma-channel": {
+    "source": "organic-plasma-channel",
+    "channelName": "@channel-name",
+    "swarmOpts": {
+      "utp": false,
+      "tcp": true,
+      "dns": true,
+      "dht": false
+    },
+    "emitReady": "channelReady"
+  },
+  "nginx-config": {
+    "source": "./organelles/nginx-config",
+    "channel": {
+      "name": "@channel-name",
+      "onReadyType": "channelReady",
+      "emitReannonceType": "reannonce-@{channel-name}"
+    },
+    "templatePath": "./nginx.conf.ejs",
+    "timeoutInterval": 100,
+    "nginx": {
+      "configPath": "/etc/nginx/nginx.conf",
+      "serverName": "localhost",
+      "serverPort": 80
+    }
+  }
+}
