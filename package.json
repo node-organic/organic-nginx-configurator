@@ -1,6 +1,6 @@
 {
   "name": "organic-nginx-configurator",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A cell which is aggregating chemicals for cluster's cell topology and notifies nginx for changes by issueing nginx configuration reload.",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "test-coverage": "jest --coverage"
   },
   "engines": {
-    "node": "8.7.0"
+    "node": "8.12.0"
   },
   "author": "Boris Filipov",
   "license": "MIT",
