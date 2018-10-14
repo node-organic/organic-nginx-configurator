@@ -1,10 +1,8 @@
 #!/bin/node
 const path = require('path')
-const exec = require('../lib/exec')
-exec('npx organic-angel install ' + process.argv[2], {
-  cwd: path.resolve(__dirname, '../'),
-  env: process.env
-}).catch((err) => {
-  console.error(err)
-  process.exit(1)
+const Angel = require('organic-angel')
+const angel = new Angel()
+process.chdir(path.resolve(__dirname, '../'))
+angel.scripts.loadScript(path.resolve(__dirname, '../scripts/install.js'), () => {
+  angel.do('install ' + process.argv[2])
 })
