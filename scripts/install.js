@@ -2,13 +2,14 @@ const loadDNAFn = require('organic-dna-loader')
 const fs = require('fs')
 const path = require('path')
 const exec = require('../lib/exec')
+const {selectBranch} = require('organic-dna-branches')
 
 module.exports = function (angel) {
   let destPath = '/home/root/organic-nginx-configurator'
   let packPath = './dist/deployment.tar.gz'
   const packCurrent = async () => {
     let excludes = [
-      `--exclude='./.git*'`, 
+      `--exclude='./.git*'`,
       `--exclude='./dist*'`,
       `--exclude='./node_modules*'`
     ]
@@ -96,7 +97,6 @@ const getTemplatePath = function (dna) {
   try {
     return selectBranch(dna, path)
   } catch (e) {
-    return
   }
 }
 const writeFile = function (filepath, content) {

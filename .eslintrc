@@ -1,0 +1,16 @@
+{
+  "extends": "standard",
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
+  "rules": {
+    "comma-dangle": [0],
+    "camelcase": [0]
+  },
+  "globals": {
+    "beforeAll": true,
+    "afterAll": true,
+    "expect": true,
+    "test": true
+  }
+}

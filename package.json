@@ -4,7 +4,8 @@
   "description": "A cell which is aggregating chemicals for cluster's cell topology and notifies nginx for changes by issueing nginx configuration reload.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-coverage": "jest --coverage"
   },
   "engines": {
     "node": "8.7.0"
@@ -14,9 +15,8 @@
   "dependencies": {
     "angelabilities-package-scripts": "^0.1.0",
     "ejs": "^2.6.1",
-    "execa": "^1.0.0",
-    "jest": "^23.6.0",
     "organic-angel": "^0.3.2",
+    "organic-dna-branches": "0.0.2",
     "organic-dna-loader": "^1.5.1",
     "organic-plasma-channel": "^2.1.1",
     "organic-stem-cell": "^2.0.3"
@@ -24,10 +24,16 @@
   "bin": {
     "organic-nginx-configurator": "organic-dna-configurator.js"
   },
-  "directories": {
-    "lib": "lib"
+  "devDependencies": {
+    "organic-plasma": "^2.1.0",
+    "jest": "^23.6.0",
+    "eslint": "^4.18.2",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/node-organic/organic-nginx-configurator.git"

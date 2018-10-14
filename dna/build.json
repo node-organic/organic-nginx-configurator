@@ -7,12 +7,9 @@
       "emitReannonceType": "reannonce-@{channel-name}"
     },
     "templatePath": "./nginx.conf.ejs",
-    "timeoutInterval": 100,
-    "nginx": {
-      "configPath": "/etc/nginx/nginx.conf",
-      "serverName": "localhost",
-      "serverPort": 80
-    }
+    "nginxReloadInterval": 100,
+    "reannonceTimeout": 5000,
+    "configPath": "/etc/nginx/nginx.conf"
   },
   "organic-plasma-channel": {
     "source": "organic-plasma-channel",

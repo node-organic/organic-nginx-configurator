@@ -1,0 +1,72 @@
+[
+  {
+    "name": "webapp-front",
+    "version": "1.0.0",
+    "endpoint": "/home/node/public/front",
+    "mountpoint": "/",
+    "domain": "mitosis.net"
+  },
+  {
+    "name": "webapp-status",
+    "version": "1.0.0",
+    "endpoint": "/home/node/status",
+    "mountpoint": "/",
+    "domain": "status.mitosis.net"
+  },
+  {
+    "name": "webapp-status",
+    "version": "096a8b277ee",
+    "endpoint": "/home/node/deployment/096a8b277ee/status",
+    "mountpoint": "/",
+    "domain": "096a8b277ee.status.mitosis.net"
+  },
+  {
+    "name": "status-api",
+    "version": "096a8b277ee",
+    "endpoint": "http://localhost:3434",
+    "mountpoint": "/api",
+    "domain": "096a8b277ee.status.mitosis.net"
+  },
+  {
+    "name": "search-api",
+    "version": "1.0.0",
+    "endpoint": "http://192.168.0.100:3000",
+    "mountpoint": "/api/1/search",
+    "domain": "mitosis.net"
+  },
+  {
+    "name": "api",
+    "version": "1.0.0",
+    "endpoint": "http://localhost:7888",
+    "mountpoint": "/api/1",
+    "domain": "mitosis.net"
+  },
+  {
+    "name": "api",
+    "version": "1.0.0",
+    "endpoint": "http://localhost:7878",
+    "mountpoint": "/api/1",
+    "domain": "mitosis.net"
+  },
+  {
+    "name": "api-legacy",
+    "version": "1.0.0",
+    "endpoint": "http://localhost:7889",
+    "mountpoint": "/",
+    "domain": "api.mitosis.net"
+  },
+  {
+    "name": "api-legacy",
+    "version": "1.0.0",
+    "endpoint": "http://localhost:5889",
+    "mountpoint": "/",
+    "domain": "api.mitosis.net"
+  },
+  {
+    "name": "api-legacy",
+    "version": "1.0.0",
+    "endpoint": "http://localhost:6889",
+    "mountpoint": "/",
+    "domain": "api.mitosis.net"
+  }
+]
