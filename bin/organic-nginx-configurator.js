@@ -1,4 +1,5 @@
-#!/bin/node
+#!/usr/bin/env node
+
 const path = require('path')
 const Angel = require('organic-angel')
 const angel = new Angel()
