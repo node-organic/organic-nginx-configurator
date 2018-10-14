@@ -18,7 +18,7 @@ nginx for changes by issueing nginx configuration reload.
 At your local command line execute
 
 ```
-$ npx node-organic/organic-nginx-configurator install <remote-ip>
+$ npx node-organic/organic-nginx-configurator <remote-ip>
 ```
 
 ## emits reannonce request
