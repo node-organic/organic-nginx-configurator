@@ -11,7 +11,9 @@ module.exports = function (angel) {
     let excludes = [
       `--exclude='./.git*'`,
       `--exclude='./dist*'`,
-      `--exclude='./node_modules*'`
+      `--exclude='./node_modules*'`,
+      `--exclude='./coverage*'`,
+      `--exclude='./__tests__*'`
     ]
     let tarCmd = `tar ${excludes.join(' ')} -zcvf ${packPath} .`
     return exec(tarCmd)
