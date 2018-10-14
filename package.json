@@ -22,7 +22,7 @@
     "organic-stem-cell": "^2.0.3"
   },
   "bin": {
-    "organic-nginx-configurator": "./bin/organic-dna-configurator.js"
+    "organic-nginx-configurator": "./bin/organic-nginx-configurator.js"
   },
   "devDependencies": {
     "organic-plasma": "^2.1.0",
