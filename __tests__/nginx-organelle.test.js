@@ -11,7 +11,7 @@ const nginxDNA = {
   'templatePath': './nginx.conf.ejs',
   'nginxReloadInterval': 100,
   'configPath': false,
-  'reannonceTimeout': 100
+  'store': ''
 }
 let plasma
 let nginx
@@ -39,49 +39,46 @@ test('updateNGINX works with backoff delay', async () => {
   await sleep(110)
   expect(nginx.updateNGINXTimeoutID).toBe(null)
 })
-test('cell notify actions', async () => {
+test('cell actions', async () => {
   nginx.handleChemical({
-    action: 'onCellStarting',
+    action: 'onCellMitosisComplete',
     cellInfo: {
       name: 'test',
-      version: '',
+      version: '1.0.0',
       domain: 'test',
       endpoint: 'test',
-      mountpoint: ''
+      mountpoint: '',
+      mitosis: {
+        aptosis: {
+          versionConditions: ['major']
+        }
+      }
     }
   })
   nginx.handleChemical({
-    action: 'onCellStarting',
+    action: 'onCellMitosisComplete',
     cellInfo: {
       name: 'test',
-      version: '',
+      version: '2.0.0',
       domain: 'test',
       endpoint: 'test:2',
-      mountpoint: ''
+      mountpoint: '',
+      mitosis: {
+        aptosis: {
+          versionConditions: []
+        }
+      }
     }
   })
   nginx.handleChemical({
-    action: 'onCellStopping',
+    action: 'onCellAptosisComplete',
     cellInfo: {
       name: 'test',
-      version: '',
-      domain: 'test',
-      endpoint: 'test',
-      mountpoint: ''
+      version: '2.0.0'
     }
   })
-  expect(nginx.startedCells.length).toBe(1)
+  expect(nginx.startedCells.length).toBe(0)
   expect(nginx.updateNGINXTimeoutID).toBeDefined()
   await sleep(110)
   expect(nginx.updateNGINXTimeoutID).toBe(null)
-})
-test('cell annoncing', (done) => {
-  nginx.dna.channel = {
-    emitReannonceType: 'test'
-  }
-  nginx.broadcastReannonce()
-  plasma.once('test', (c) => {
-    expect(c).toBeDefined()
-    done()
-  })
 })

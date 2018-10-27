@@ -1,15 +1,25 @@
 const fs = require('fs')
 const ejs = require('ejs')
 const exec = require('../lib/exec')
+const path = require('path')
+const semverDiff = require('semver-diff')
 
 module.exports = class {
   constructor (plasma, dna) {
     this.plasma = plasma
     this.dna = dna
     this.templatePromise = this.loadTemplate()
+    this.startedCells = []
+    try {
+      if (this.dna.store && this.dna.store.endsWith('.json')) {
+        this.startedCells = require(path.join(process.cwd(), this.dna.store))
+      }
+    } catch (e) {}
     if (dna.channel) {
-      this.plasma.on(dna.channel.name, this.handleChemical, this)
-      this.plasma.on(dna.channel.onReadyType, this.broadcastReannonce, this)
+      this.plasma.on({
+        type: 'control',
+        channel: dna.channel.name
+      }, this.handleChemical, this)
     }
     plasma.on(dna.killOn || 'kill', () => {
       if (this.updateNGINXTimeoutID) {
@@ -31,33 +41,29 @@ module.exports = class {
     if (!this[c.action]) return next(new Error(c.action + ' action not found'))
     this[c.action](c, next)
   }
-  broadcastReannonce (c) {
-    console.info(`broadcasting reannonce request after ${this.dna.reannonceTimeout / 1000} sec...`)
-    setTimeout(() => {
-      this.plasma.emit({
-        type: this.dna.channel.emitReannonceType,
-        channel: this.dna.channel.name
-      })
-      console.info('reannonce request broadcasted.')
-    }, this.dna.reannonceTimeout)
-  }
 
   setTemplate (c) {
     this.templatePromise = Promise.resolve(c.template)
   }
-  onCellStarting (c) {
-    if (!c.cellInfo || !c.cellInfo.endpoint) return
+  onCellMitosisComplete (c) {
+    this.flushLegacyCells(c.cellInfo)
     this.startedCells.push(c.cellInfo)
     this.updateNGINX()
   }
-  onCellAnnoncing (c) {
-    if (!c.cellInfo || !c.cellInfo.endpoint) return
-    this.startedCells.push(c.cellInfo)
-    this.updateNGINX()
-  }
-  onCellStopping (c) {
+  flushLegacyCells (cellInfo) {
     for (let i = 0; i < this.startedCells.length; i++) {
-      if (is_same_cell(c.cellInfo, this.startedCells[i])) {
+      let legacy_cell = this.startedCells[i]
+      if (legacy_cell.name === cellInfo.name &&
+        is_version_legacy(legacy_cell.mitosis.aptosis.versionConditions, legacy_cell.version, cellInfo.version)) {
+        this.startedCells.splice(i, 1)
+        i -= 1
+      }
+    }
+  }
+  onCellAptosisComplete (c) {
+    for (let i = 0; i < this.startedCells.length; i++) {
+      if (this.startedCells[i].name === c.cellInfo.name &&
+        this.startedCells[i].version === c.cellInfo.version) {
         this.startedCells.splice(i, 1)
         i -= 1
         this.updateNGINX()
@@ -66,7 +72,11 @@ module.exports = class {
   }
   updateNGINX () {
     if (this.updateNGINXTimeoutID) return
-    this.updateNGINXTimeoutID = setTimeout(() => {
+    if (!this.dna.nginxReloadInterval) return
+    this.updateNGINXTimeoutID = setTimeout(async () => {
+      if (this.dna.store && this.dna.store.endsWith('.json')) {
+        await writeFile(path.join(process.cwd(), this.dna.store), JSON.stringify(this.startedCells))
+      }
       this.updateNGINXTimeoutID = null
       this.templatePromise.then(async (template) => {
         await writeFile(this.dna.configPath, ejs.render(template, {
@@ -167,9 +177,7 @@ const get_generation_id = function (cell) {
   return cell.name + cell.version
 }
 
-const is_same_cell = function (cell1, cell2) {
-  for (let key in cell1) {
-    if (cell1[key] !== cell2[key]) return false
-  }
-  return true
+const is_version_legacy = function (versionConditions, existing_version, new_version) {
+  let diffValue = semverDiff(existing_version, new_version)
+  return versionConditions.indexOf(diffValue) !== -1
 }

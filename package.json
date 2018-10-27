@@ -19,7 +19,8 @@
     "organic-dna-branches": "0.0.2",
     "organic-dna-loader": "^1.5.1",
     "organic-plasma-channel": "^2.1.1",
-    "organic-stem-cell": "^2.0.3"
+    "organic-stem-cell": "^2.0.3",
+    "semver-diff": "^2.1.0"
   },
   "bin": {
     "organic-nginx-configurator": "./bin/organic-nginx-configurator.js"
