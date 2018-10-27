@@ -23,30 +23,36 @@ $ npx node-organic/organic-nginx-configurator <remote-ip>
 
 ## cell control chemicals
 
+#### onCellMitosisComplete
+
 ```
 {
-  type: 'control',
-  action: String,
-  cellInfo: CellInfo
+  type: "control",
+  action: "onCellAptosisComplete",
+  cellInfo: {
+    name: String
+    version: String // X.Y.Z or git-sha
+    endpoint: String // url || absolute_directory_path
+    mountpoint: String // relative url to provided domain
+    domain: String // domain.com or sub.domain.com
+    mitosis: {
+      aptosis: {
+        versionConditions: [String] // 'major', 'minor', 'patch', 'prerelease', 'build'
+      }
+    }
+  }
 }
 ```
 
-### actions
-
-* `onCellMitosisComplete`
-* `onCellAptosisComplete`
-
-### CellInfo shape
+#### onCellAptosisComplete
 
 ```
-name: String
-version: String // X.Y.Z or git-sha
-endpoint: String // url || absolute_directory_path
-mountpoint: String // relative url to provided domain
-domain: String // domain.com or sub.domain.com
-mitosis: {
-  aptosis: {
-    versionConditions: [String] // 'major', 'minor', 'patch', 'prerelease', 'build'
+{
+  type: "control",
+  action: "onCellAptosisComplete",
+  cellInfo: {
+    name: String,
+    version: String
   }
 }
 ```

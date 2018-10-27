@@ -111,7 +111,7 @@ const writeFile = function (filepath, content) {
 }
 const loadDNA = async function () {
   // do not load own DNA
-  if (process.cwd() === path.basename(__dirname)) return Promise.resolve({})
+  if (process.cwd() === path.relative(__dirname, '../')) return Promise.resolve({})
   return new Promise((resolve, reject) => {
     loadDNAFn((err, dna) => {
       if (err) return reject(err)
