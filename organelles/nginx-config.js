@@ -45,10 +45,11 @@ module.exports = class {
   setTemplate (c) {
     this.templatePromise = Promise.resolve(c.template)
   }
-  onCellMitosisComplete (c) {
+  onCellMitosisComplete (c, next) {
     this.flushLegacyCells(c.cellInfo)
     this.startedCells.push(c.cellInfo)
     this.updateNGINX()
+    next && next()
   }
   flushLegacyCells (cellInfo) {
     for (let i = 0; i < this.startedCells.length; i++) {
@@ -60,7 +61,7 @@ module.exports = class {
       }
     }
   }
-  onCellAptosisComplete (c) {
+  onCellAptosisComplete (c, next) {
     for (let i = 0; i < this.startedCells.length; i++) {
       if (this.startedCells[i].name === c.cellInfo.name &&
         this.startedCells[i].version === c.cellInfo.version) {
@@ -69,6 +70,7 @@ module.exports = class {
         this.updateNGINX()
       }
     }
+    next && next()
   }
   updateNGINX () {
     if (this.updateNGINXTimeoutID) return
