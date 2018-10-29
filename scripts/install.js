@@ -56,6 +56,7 @@ module.exports = function (angel) {
         }
       }
       await exec('ssh root@' + angel.cmdData.remote + ' \'systemctl start organic-nginx-configurator.service\'')
+      await exec('ssh root@' + angel.cmdData.remote + ' \'systemctl restart organic-nginx-configurator.service\'')
       console.log('all done.')
       next && next()
     } catch (e) {
@@ -72,7 +73,7 @@ module.exports = function (angel) {
       # Requires=After=nginx.service
 
       [Service]
-      ExecStart=/bin/bash /home/root/organic-nginx-configurator/scripts/daemon.sh ${destPath} ${packagejson.engines.node}
+      ExecStart=/bin/bash /home/root/organic-nginx-configurator/scripts/daemon.sh ${packagejson.engines.node}
       # Required on some systems
       WorkingDirectory=${destPath}
       Restart=always
