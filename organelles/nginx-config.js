@@ -55,13 +55,13 @@ module.exports = class {
     for (let i = 0; i < this.startedCells.length; i++) {
       let legacy_cell = this.startedCells[i]
       if (legacy_cell.name === cellInfo.name &&
-        is_version_legacy(legacy_cell.mitosis.aptosis.versionConditions, legacy_cell.version, cellInfo.version)) {
+        is_version_legacy(legacy_cell.mitosis.apoptosis.versionConditions, legacy_cell.version, cellInfo.version)) {
         this.startedCells.splice(i, 1)
         i -= 1
       }
     }
   }
-  onCellAptosisComplete (c, next) {
+  onCellApoptosisComplete (c, next) {
     for (let i = 0; i < this.startedCells.length; i++) {
       if (this.startedCells[i].name === c.cellInfo.name &&
         this.startedCells[i].version === c.cellInfo.version) {

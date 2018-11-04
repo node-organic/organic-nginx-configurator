@@ -18,7 +18,11 @@ module.exports = function (angel) {
     let tarCmd = `tar ${excludes.join(' ')} -zcvf ${packPath} .`
     return exec(tarCmd)
   }
-  angel.on('install :remote', async (angel, next) => {
+  angel.on('install :remote', (angel, next) => {
+    let templatePath = path.resolve(__dirname, '../nginx.conf.ejs')
+    angel.do('install ' + angel.cmdData.remote + ' ' + templatePath, next)
+  })
+  angel.on('install :remote :templatePath', async (angel, next) => {
     try {
       await exec('mkdir -p ./dist')
       await packCurrent()
@@ -47,14 +51,7 @@ module.exports = function (angel) {
         'systemctl enable organic-nginx-configurator.service'
       ]
       await exec('ssh root@' + angel.cmdData.remote + ' \'' + setupCmds.join(' && ') + '\'')
-      let dna = await loadDNA()
-      if (dna.cells && dna.cells['organic-nginx-configurator']) {
-        await exec(`scp ./cells/dna/organic-nginx-configurator.json root@${angel.cmdData.remote}:${destPath}/dna/_production.json`)
-        let templatePath = getTemplatePath(dna)
-        if (templatePath) {
-          await exec(`scp ${templatePath} root@${angel.cmdData.remote}:${destPath}/${templatePath}`)
-        }
-      }
+      await exec(`scp ${angel.cmdData.templatePath} root@${angel.cmdData.remote}:${destPath}/nginx.conf.ejs`)
       await exec('ssh root@' + angel.cmdData.remote + ' \'systemctl start organic-nginx-configurator.service\'')
       await exec('ssh root@' + angel.cmdData.remote + ' \'systemctl restart organic-nginx-configurator.service\'')
       console.log('all done.')
@@ -83,7 +80,6 @@ module.exports = function (angel) {
       StandardOutput=syslog
       StandardError=syslog
       SyslogIdentifier=organic-nginx-configurator
-      Environment=CELL_MODE=_production
 
       [Install]
       WantedBy=multi-user.target`)

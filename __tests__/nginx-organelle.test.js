@@ -49,7 +49,7 @@ test('cell actions', async () => {
       endpoint: 'test',
       mountpoint: '',
       mitosis: {
-        aptosis: {
+        apoptosis: {
           versionConditions: ['major']
         }
       }
@@ -64,14 +64,14 @@ test('cell actions', async () => {
       endpoint: 'test:2',
       mountpoint: '',
       mitosis: {
-        aptosis: {
+        apoptosis: {
           versionConditions: []
         }
       }
     }
   })
   nginx.handleChemical({
-    action: 'onCellAptosisComplete',
+    action: 'onCellApoptosisComplete',
     cellInfo: {
       name: 'test',
       version: '2.0.0'

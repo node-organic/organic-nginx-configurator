@@ -21,6 +21,12 @@ At your local command line execute
 $ npx node-organic/organic-nginx-configurator <remote-ip>
 ```
 
+or with custom ejs template
+
+```
+$ npx node-organic/organic-nginx-configurator <remote-ip> <path-to-nginx-ejs-template>
+```
+
 ## cell control chemicals
 
 #### onCellMitosisComplete
@@ -28,7 +34,7 @@ $ npx node-organic/organic-nginx-configurator <remote-ip>
 ```
 {
   type: "control",
-  action: "onCellAptosisComplete",
+  action: "onCellApoptosisComplete",
   cellInfo: {
     name: String
     version: String // X.Y.Z or git-sha
@@ -36,7 +42,7 @@ $ npx node-organic/organic-nginx-configurator <remote-ip>
     mountpoint: String // relative url to provided domain
     domain: String // domain.com or sub.domain.com
     mitosis: {
-      aptosis: {
+      apoptosis: {
         versionConditions: [String] // 'major', 'minor', 'patch', 'prerelease', 'build'
       }
     }
@@ -44,36 +50,15 @@ $ npx node-organic/organic-nginx-configurator <remote-ip>
 }
 ```
 
-#### onCellAptosisComplete
+#### onCellApoptosisComplete
 
 ```
 {
   type: "control",
-  action: "onCellAptosisComplete",
+  action: "onCellApoptosisComplete",
   cellInfo: {
     name: String,
     version: String
   }
 }
 ```
-
-## howto
-
-### set custom organic-nginx-configurator dna
-
-1. create `dna/cells/organic-nginx-configurator.json`
-2. execute `$ npx organic-nginx-configurator install <remote-ip>`
-
-### set custom nginx conf
-
-1. create `dna/cells/organic-nginx-configurator.json` with content:
-
-  ```
-  {
-    "build": {
-      "templatePath": "./current/working/directory/relative/path.ejs"
-    }
-  }
-  ```
-
-2. execute `$ npx organic-nginx-configurator install <remote-ip>`

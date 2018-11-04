@@ -26,7 +26,7 @@ test('flush legacy cells on major new version', async () => {
       name: 'test',
       version: '1.0.0',
       mitosis: {
-        aptosis: {
+        apoptosis: {
           versionConditions: ['major']
         }
       }
@@ -47,7 +47,7 @@ test('flush legacy cells only on minor new version', async () => {
       name: 'test',
       version: '1.0.0',
       mitosis: {
-        aptosis: {
+        apoptosis: {
           versionConditions: ['minor']
         }
       }
@@ -78,7 +78,7 @@ test('flush legacy cells only on build new version', async () => {
       name: 'test',
       version: '1.0.0-featureA+1',
       mitosis: {
-        aptosis: {
+        apoptosis: {
           versionConditions: ['build']
         }
       }
