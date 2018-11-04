@@ -1,8 +1,6 @@
-const loadDNAFn = require('organic-dna-loader')
 const fs = require('fs')
 const path = require('path')
 const exec = require('../lib/exec')
-const {selectBranch} = require('organic-dna-branches')
 
 module.exports = function (angel) {
   let destPath = '/home/root/organic-nginx-configurator'
@@ -47,7 +45,7 @@ module.exports = function (angel) {
         '. ./.nvm/nvm.sh',
         'nvm use ' + packagejson.engines.node,
         'npm i',
-        'npx --no-install angel install as daemon',
+        'npx --no-install angel register systemd service',
         'systemctl enable organic-nginx-configurator.service'
       ]
       await exec('ssh root@' + angel.cmdData.remote + ' \'' + setupCmds.join(' && ') + '\'')
@@ -61,7 +59,7 @@ module.exports = function (angel) {
       next && next(e)
     }
   })
-  angel.on('install as daemon', async (angel, next) => {
+  angel.on('register systemd service', async (angel, next) => {
     let packagejson = require('../package.json')
     try {
       await writeFile('/etc/systemd/system/organic-nginx-configurator.service', `
@@ -90,29 +88,11 @@ module.exports = function (angel) {
     next && next()
   })
 }
-
-const getTemplatePath = function (dna) {
-  let path = 'cells.organic-nginx-configurator.build.nginx-config.templatePath'
-  try {
-    return selectBranch(dna, path)
-  } catch (e) {
-  }
-}
 const writeFile = function (filepath, content) {
   return new Promise((resolve, reject) => {
     fs.writeFile(filepath, content, (err) => {
       if (err) return reject(err)
       resolve()
-    })
-  })
-}
-const loadDNA = async function () {
-  // do not load own DNA
-  if (process.cwd() === path.relative(__dirname, '../')) return Promise.resolve({})
-  return new Promise((resolve, reject) => {
-    loadDNAFn((err, dna) => {
-      if (err) return reject(err)
-      resolve(dna)
     })
   })
 }
