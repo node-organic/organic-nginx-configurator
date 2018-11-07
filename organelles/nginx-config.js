@@ -46,9 +46,19 @@ module.exports = class {
     this.templatePromise = Promise.resolve(c.template)
   }
   onCellMitosisComplete (c, next) {
-    console.info('registering', c.cellInfo.name, c.cellInfo.version)
-    this.flushLegacyCells(c.cellInfo)
-    this.startedCells.push(c.cellInfo)
+    let sameVersion = false
+    let cellInfo = c.cellInfo
+    for (let i = 0; i < this.startedCells.length; i++) {
+      if (this.startedCells[i].name === cellInfo.name &&
+      this.startedCells[i].version === cellInfo.version) {
+        sameVersion = true
+      }
+    }
+    console.info('registering', cellInfo.name, cellInfo.version)
+    this.flushLegacyCells(cellInfo)
+    if (!sameVersion) {
+      this.startedCells.push(cellInfo)
+    }
     this.updateNGINX()
     next && next()
   }
