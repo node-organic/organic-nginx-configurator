@@ -46,6 +46,7 @@ module.exports = class {
     this.templatePromise = Promise.resolve(c.template)
   }
   onCellMitosisComplete (c, next) {
+    console.info('registering', c.cellInfo.name, c.cellInfo.version)
     this.flushLegacyCells(c.cellInfo)
     this.startedCells.push(c.cellInfo)
     this.updateNGINX()
@@ -86,6 +87,7 @@ module.exports = class {
           servers: this.getServersAndLocations()
         }))
         await exec('systemctl reload nginx')
+        console.info('nginx conf updated')
       }).catch((err) => {
         console.error(err)
       })

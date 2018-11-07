@@ -9,7 +9,8 @@
     "templatePath": "./nginx.conf.ejs",
     "nginxReloadInterval": 100,
     "reannonceTimeout": 5000,
-    "configPath": "/etc/nginx/nginx.conf"
+    "configPath": "/etc/nginx/nginx.conf",
+    "store": "running-cells.json"
   },
   "organic-plasma-channel": {
     "source": "organic-plasma-channel",
