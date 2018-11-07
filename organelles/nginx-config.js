@@ -146,7 +146,7 @@ module.exports = class {
           // set location only once per generation
           locations_hash[generationId] = {
             front: cell.mountpoint,
-            back: '@' + generationId
+            back: 'http://' + generationId
           }
         }
       }
