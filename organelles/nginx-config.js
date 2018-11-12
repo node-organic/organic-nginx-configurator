@@ -1,7 +1,7 @@
 const fs = require('fs')
 const ejs = require('ejs')
 const exec = require('../lib/exec')
-const StartedCells = require('../lib/started-cells')
+const StartedCells = require('organic-alchemy-started-cells-info')
 
 module.exports = class {
   constructor (plasma, dna) {
