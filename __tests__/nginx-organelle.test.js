@@ -7,11 +7,9 @@ const sleep = async (interval) => {
 }
 
 const nginxDNA = {
-  'channel': false,
   'templatePath': './nginx.conf.ejs',
   'nginxReloadInterval': 100,
-  'configPath': false,
-  'store': ''
+  'configPath': false
 }
 let plasma
 let nginx
@@ -19,7 +17,6 @@ let nginx
 beforeAll(() => {
   plasma = new Plasma()
   nginx = new NginxOrganelle(plasma, nginxDNA)
-  nginx.startedCells = []
   process.env.DRY = 1
 })
 afterAll(() => {
@@ -40,8 +37,7 @@ test('updateNGINX works with backoff delay', async () => {
   expect(nginx.updateNGINXTimeoutID).toBe(null)
 })
 test('cell actions', async () => {
-  nginx.handleChemical({
-    action: 'onCellMitosisComplete',
+  nginx.onCellMitosisComplete({
     cellInfo: {
       name: 'test',
       version: '1.0.0',
@@ -55,8 +51,7 @@ test('cell actions', async () => {
       }
     }
   })
-  nginx.handleChemical({
-    action: 'onCellMitosisComplete',
+  nginx.onCellMitosisComplete({
     cellInfo: {
       name: 'test',
       version: '2.0.0',
@@ -70,14 +65,13 @@ test('cell actions', async () => {
       }
     }
   })
-  nginx.handleChemical({
-    action: 'onCellApoptosisComplete',
+  nginx.onCellApoptosisComplete({
     cellInfo: {
       name: 'test',
       version: '2.0.0'
     }
   })
-  expect(nginx.startedCells.length).toBe(0)
+  expect(nginx.startedCells.length).toBe(1)
   expect(nginx.updateNGINXTimeoutID).toBeDefined()
   await sleep(110)
   expect(nginx.updateNGINXTimeoutID).toBe(null)

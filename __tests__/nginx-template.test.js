@@ -1,16 +1,15 @@
 const Plasma = require('organic-plasma')
 const NginxOrganelle = require('../organelles/nginx-config')
+
 const ejs = require('ejs')
 const clean = (value) => {
   return value.toLowerCase().replace(/ /g, '').replace(/\n/g, '')
 }
 
 const nginxDNA = {
-  'channel': false,
   'templatePath': './nginx.conf.ejs',
   'timeoutInterval': 100,
-  'configPath': false,
-  'reannonceTimeout': 100
+  'configPath': false
 }
 let plasma
 let nginx
@@ -19,7 +18,7 @@ let template
 beforeAll(() => {
   plasma = new Plasma()
   nginx = new NginxOrganelle(plasma, nginxDNA)
-  nginx.startedCells = require('./nginx-started-cells.json')
+  nginx.startedCells.addMany(require('./nginx-started-cells.json'))
 })
 
 test('template is loaded', async () => {
@@ -56,7 +55,7 @@ test('template is rendered via ejs', () => {
         }
 
         location /api/1/search {
-          proxy_pass @search-api1.0.0;
+          proxy_pass http://search-api1.0.0/;
           proxy_set_header Host $host;
           proxy_set_header Referer $http_referer;
           proxy_set_header X-Real-IP $remote_addr;
@@ -66,7 +65,7 @@ test('template is rendered via ejs', () => {
         }
 
         location /api/1 {
-          proxy_pass @api1.0.0;
+          proxy_pass http://api1.0.0/;
           proxy_set_header Host $host;
           proxy_set_header Referer $http_referer;
           proxy_set_header X-Real-IP $remote_addr;

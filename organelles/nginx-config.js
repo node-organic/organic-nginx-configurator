@@ -66,6 +66,7 @@ module.exports = class {
     let upstreams_hash = {}
     for (let i = 0; i < this.startedCells.length; i++) {
       let cell = this.startedCells[i]
+      if (!cell.endpoint) console.error(cell)
       if (cell.endpoint.indexOf('/') === 0) {
         continue // filesystem cells doesnt have upstream
       }
