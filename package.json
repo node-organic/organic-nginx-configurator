@@ -13,6 +13,8 @@
   "author": "Boris Filipov",
   "license": "MIT",
   "dependencies": {
+    "organic-watch-json-dir": "node-organic/organic-watch-json-dir",
+    "angelscripts-install-as-daemon": "node-organic/angelscripts-install-as-daemon",
     "angelabilities-package-scripts": "^0.1.0",
     "ejs": "^2.6.1",
     "organic-angel": "^0.3.2",
@@ -26,14 +28,15 @@
     "organic-nginx-configurator": "./bin/organic-nginx-configurator.js"
   },
   "devDependencies": {
-    "organic-plasma": "^2.1.0",
-    "jest": "^23.6.0",
+    "angelscripts-help": "^0.2.0",
     "eslint": "^4.18.2",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^23.6.0",
+    "organic-plasma": "^2.1.0"
   },
   "repository": {
     "type": "git",
