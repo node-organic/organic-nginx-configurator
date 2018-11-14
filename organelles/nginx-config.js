@@ -35,7 +35,9 @@ module.exports = class {
     next && next()
   }
   onCellApoptosisComplete (c, next) {
-    this.startedCells.remove(c.cellInfo)
+    let cellInfo = c.cellInfo
+    console.info('removing', cellInfo.name, cellInfo.version)
+    this.startedCells.remove(cellInfo)
     this.updateNGINX()
     next && next()
   }

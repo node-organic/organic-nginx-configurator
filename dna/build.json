@@ -12,8 +12,7 @@
       "dataPropertyName": "cellInfo",
       "onChangeFile": "onCellMitosisComplete",
       "onNewFile": "onCellMitosisComplete",
-      "onDeleteFile": "onCellApoptosisComplete",
-      "onFoundFile": "onCellMitosisComplete"
+      "onDeleteFile": "onCellApoptosisComplete"
     }
   }
 }
