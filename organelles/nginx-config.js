@@ -29,6 +29,7 @@ module.exports = class {
   }
   onCellMitosisComplete (c, next) {
     let cellInfo = c.cellInfo
+    if (!cellInfo.port) return
     console.info('registering', cellInfo.name, cellInfo.version)
     this.startedCells.add(cellInfo)
     this.updateNGINX()
@@ -36,6 +37,7 @@ module.exports = class {
   }
   onCellApoptosisComplete (c, next) {
     let cellInfo = c.cellInfo
+    if (!cellInfo.port) return
     console.info('removing', cellInfo.name, cellInfo.version)
     this.startedCells.remove(cellInfo)
     this.updateNGINX()
