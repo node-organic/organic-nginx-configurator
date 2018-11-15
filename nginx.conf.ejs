@@ -66,6 +66,7 @@ http {
     server {
       listen <%= server.port %>;
       server_name <%= server.name %>;
+      root /home/node/www/public;
 
       <% server.locations.forEach((location) => { %>
         <% if (location.back) { %>
@@ -81,8 +82,8 @@ http {
         <% } %>
         <% if (location.files) { %>
           location <%= location.front %> {
-            root <%= location.files %>;
-            try_files $uri $uri/ $uri/index.html =404;
+            alias <%= location.files %>;
+            autoindex on;
           }
         <% } %>
       <% }) %>
