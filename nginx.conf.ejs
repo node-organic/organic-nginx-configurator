@@ -81,10 +81,17 @@ http {
           }
         <% } %>
         <% if (location.files) { %>
-          location <%= location.front %> {
-            alias <%= location.files %>;
-            autoindex on;
-          }
+          <% if (location.front === '/') { %>
+            location <%= location.front %> {
+              root <%= location.files %>;
+              autoindex on;
+            }
+          <% } else { %>
+            location <%= location.front %> {
+              alias <%= location.files %>;
+              autoindex on;
+            }
+          <% } %>
         <% } %>
       <% }) %>
     }
