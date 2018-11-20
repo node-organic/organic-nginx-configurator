@@ -106,7 +106,7 @@ module.exports = class {
           // set location only once per generation
           locations_hash[generationId] = {
             front: cell.mountpoint,
-            files: cell.endpoint
+            files: cell.endpoint.endsWith('/') ? cell.endpoint : cell.endpoint + '/'
           }
         }
       } else {
