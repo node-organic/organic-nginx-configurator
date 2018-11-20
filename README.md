@@ -39,6 +39,7 @@ A json file containing the following structure.
   endpoint: String, // url || absolute_directory_path
   domain: String // domain.com or sub.domain.com
   mountpoint: String, // relative url to provided domain
+  port: Number // required, indicates localhost port || used as marker for nginx enabled cell
 }
 ```
 

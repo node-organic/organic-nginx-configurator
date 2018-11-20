@@ -44,11 +44,7 @@ test('cell actions', async () => {
       domain: 'test',
       endpoint: 'test',
       mountpoint: '',
-      mitosis: {
-        apoptosis: {
-          versionConditions: ['major']
-        }
-      }
+      port: 8080
     }
   })
   nginx.onCellMitosisComplete({
@@ -58,17 +54,14 @@ test('cell actions', async () => {
       domain: 'test',
       endpoint: 'test:2',
       mountpoint: '',
-      mitosis: {
-        apoptosis: {
-          versionConditions: []
-        }
-      }
+      port: 8080
     }
   })
   nginx.onCellApoptosisComplete({
     cellInfo: {
       name: 'test',
-      version: '2.0.0'
+      version: '2.0.0',
+      port: 8080
     }
   })
   expect(nginx.startedCells.length).toBe(1)

@@ -48,10 +48,11 @@ test('template is rendered via ejs', () => {
     server {
         listen 80;
         server_name mitosis.net;
+        root /home/node/www/public;
 
         location / {
-          root /home/node/public/front;
-          try_files $uri $uri/ =404;
+          root /home/node/public/front/;
+          autoindex on;
         }
 
         location /api/1/search {
