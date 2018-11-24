@@ -1,11 +1,15 @@
 {
   "name": "organic-nginx-configurator",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A cell which is aggregating chemicals for cluster's cell topology and notifies nginx for changes by issueing nginx configuration reload.",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test-coverage": "jest --coverage"
+    "test-coverage": "jest --coverage",
+    "release-patch": "npm version patch",
+    "release-minor": "npm version minor",
+    "release-major": "npm version major",
+    "postversion": "npm publish && git push --tags && git push origin master"
   },
   "engines": {
     "node": "8.12.0"
