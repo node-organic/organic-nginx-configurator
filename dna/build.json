@@ -7,7 +7,7 @@
   },
   "organic-watch-json-dir": {
     "source": "organic-watch-json-dir",
-    "location": "/home/node/deployments",
+    "location": "/home/node/deployments/running",
     "emit": {
       "dataPropertyName": "cellInfo",
       "onChangeFile": "onCellMitosisComplete",
