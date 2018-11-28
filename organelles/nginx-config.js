@@ -70,11 +70,10 @@ module.exports = class {
     let upstreams_hash = {}
     for (let i = 0; i < this.startedCells.length; i++) {
       let cell = this.startedCells[i]
-      if (!cell.endpoint) console.error(cell)
-      if (cell.endpoint.indexOf('/') === 0) {
+      if (cell.endpoint.startsWith('/')) {
         continue // filesystem cells doesnt have upstream
       }
-      let generationId = cell.name
+      let generationId = get_generation_id(cell)
       if (!upstreams_hash[generationId]) {
         upstreams_hash[generationId] = {
           name: generationId,
@@ -146,5 +145,5 @@ const hash_to_arr = function (hash) {
 }
 
 const get_generation_id = function (cell) {
-  return cell.name + cell.version
+  return cell.name
 }

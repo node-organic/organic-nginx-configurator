@@ -34,7 +34,7 @@ test('template is rendered via ejs', () => {
     servers: nginx.getServersAndLocations()
   })
   expect(clean(result)).toContain(clean(`
-    upstream api-legacy1.0.0 {
+    upstream api-legacy {
         server http://localhost:7889;
         server http://localhost:5889;
         server http://localhost:6889;
@@ -56,7 +56,7 @@ test('template is rendered via ejs', () => {
         }
 
         location /api/1/search {
-          proxy_pass http://search-api1.0.0/;
+          proxy_pass http://search-api/;
           proxy_set_header Host $host;
           proxy_set_header Referer $http_referer;
           proxy_set_header X-Real-IP $remote_addr;
@@ -66,7 +66,7 @@ test('template is rendered via ejs', () => {
         }
 
         location /api/1 {
-          proxy_pass http://api1.0.0/;
+          proxy_pass http://api/;
           proxy_set_header Host $host;
           proxy_set_header Referer $http_referer;
           proxy_set_header X-Real-IP $remote_addr;

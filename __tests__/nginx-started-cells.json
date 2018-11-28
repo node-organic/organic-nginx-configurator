@@ -45,7 +45,8 @@
     "endpoint": "http://localhost:7888",
     "mountpoint": "/api/1",
     "domain": "mitosis.net",
-    "port": 7888
+    "port": 7888,
+    "index": 0
   },
   {
     "name": "api",
@@ -53,7 +54,8 @@
     "endpoint": "http://localhost:7878",
     "mountpoint": "/api/1",
     "domain": "mitosis.net",
-    "port": 7878
+    "port": 7878,
+    "index": 1
   },
   {
     "name": "api-legacy",
@@ -61,7 +63,8 @@
     "endpoint": "http://localhost:7889",
     "mountpoint": "/",
     "domain": "api.mitosis.net",
-    "port": 7889
+    "port": 7889,
+    "index": 2
   },
   {
     "name": "api-legacy",
@@ -69,7 +72,8 @@
     "endpoint": "http://localhost:5889",
     "mountpoint": "/",
     "domain": "api.mitosis.net",
-    "port": 5889
+    "port": 5889,
+    "index": 3
   },
   {
     "name": "api-legacy",
@@ -77,6 +81,7 @@
     "endpoint": "http://localhost:6889",
     "mountpoint": "/",
     "domain": "api.mitosis.net",
-    "port": 6889
+    "port": 6889,
+    "index": 4
   }
 ]

@@ -17,7 +17,7 @@
   "author": "Boris Filipov",
   "license": "MIT",
   "dependencies": {
-    "organic-alchemy-started-cells-info": "^1.0.1",
+    "organic-alchemy-started-cells-info": "^1.1.0",
     "organic-watch-json-dir": "^1.0.2",
     "angelscripts-install-as-daemon": "^1.0.1",
     "angelabilities-package-scripts": "^0.1.0",
