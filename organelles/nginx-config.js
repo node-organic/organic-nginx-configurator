@@ -74,7 +74,7 @@ module.exports = class {
       if (cell.endpoint.indexOf('/') === 0) {
         continue // filesystem cells doesnt have upstream
       }
-      let generationId = get_generation_id(cell)
+      let generationId = cell.name
       if (!upstreams_hash[generationId]) {
         upstreams_hash[generationId] = {
           name: generationId,
